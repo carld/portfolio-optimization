@@ -8,9 +8,9 @@ T="250"
 file="portfolio.txt"
 # Number of portfolios
 N="100"
-# Daily return for the
+# Daily return for the risk free asset
 R="0.0003"
-# Maximum daily return
+# Maximum daily return value considered
 Rmax="0.01"
 # The path to R
 rpath=`which RScript`
