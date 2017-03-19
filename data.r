@@ -1,5 +1,9 @@
 #!/usr/bin/Rscript
 # data.r, downloads raw stock data
+#
+# ./data $tickers
+# $tickers :- a comma separated list of tickers
+
 args <- commandArgs(TRUE)
 extract <- function(args){
   stocks <- t(read.table(args[1],sep=",",strip.white=TRUE)[1,])

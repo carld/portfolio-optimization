@@ -4,8 +4,8 @@
 # T :- number of trading days
 # R :- daily return for risk free asset
 # N :- number of portfolios on the frontier
-# RMax :- maxiumum daily return 
-# prices: daily stock prices
+# RMax :- maxiumum daily return
+# prices :- daily stock prices
 
 args <- commandArgs(TRUE);
 read_data <- function(args){

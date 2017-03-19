@@ -1,5 +1,11 @@
 #!/usr/bin/Rscript
 # price.r, extracts the stock prices
+#
+# ./price $stocks $T $file
+# $stocks :- list of tickers
+# $T :- number of trading days
+# $file :- file to extract stock prices to
+
 args <- commandArgs(TRUE)
 extract_price <- function(args){
   stocks <- t(read.table(args[1], sep=",", strip.white=TRUE)[1,])

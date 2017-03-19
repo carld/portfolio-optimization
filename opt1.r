@@ -1,5 +1,12 @@
 #!/usr/bin/Rscript
 # optimization1.r, N risky assets case
+#
+# $rpath opt2.r $file $N $R $Rmax
+# R :- daily return for risk free asset
+# N :- number of portfolios on the frontier
+# RMax :- maxiumum daily return
+# prices :- daily stock prices
+
 args <- commandArgs(TRUE)
 read_data <- function(args){
   data <- read.table(paste("./data/", args[1], sep=""),
