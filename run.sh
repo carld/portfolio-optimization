@@ -15,8 +15,8 @@ Rmax="0.01"
 # The path to R
 rpath=`which RScript`
 
-$(rpath) data.r $(stocks)
-$(rpath) price.r $(stocks) $(T) $(file)
-$(rpath) optimization1.r $(file) $(N) $(Rmax)
-$(rpath) optimization2.r $(file) $(N) $(R) $(Rmax)
+#$rpath data.r $stocks
+#$rpath price.r $stocks $T $file
+#$rpath optimization1.r $file $N $Rmax
+$rpath opt2.r $file $N $R $Rmax
 

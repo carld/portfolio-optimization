@@ -65,73 +65,85 @@ foptimization <- function(returns){
   return(list(s, z, r, ss, p, cml, wcml, mp, wmp, minp, wminp));
 }
 
-plot_results<- function(data, returns, results){
-dat <- log(data[[1]]); M <- nrow(dat); J <- ncol(dat);
-ymax = max(dat); ymin = min(dat); mycolors <- rainbow(J); s <- results[[1]]; z <- results[[2]]; r <- results[[3]]; ss <- results[[4]]; p <- results[[5]];
-cml <- results[[6]];
-mp <- results[[8]]; wmp <- results[[9]];
-minp <- results[[10]]; wminp <- results[[11]]; postscript(file="./results2/fig1.eps", onefile=FALSE,
-        horizontal=FALSE, height=10, width=5);
-par(mfrow=c(2,1));
-id <- c(1:nrow(dat));
-plot(id, rev(dat[,1]), ylim=c(ymin, ymax), type="l",
-        col=mycolors[1], xlab="day", ylab="log(price)",
-        main = "Asset Prices");
-if(J > 1){
+plot_results <- function(data, returns, results){
+  dat <- log(data[[1]]); 
+  M <- nrow(dat); 
+  J <- ncol(dat);
+  ymax = max(dat); 
+  ymin = min(dat); 
+  mycolors <- rainbow(J); 
+  s <- results[[1]]; 
+  z <- results[[2]]; 
+  r <- results[[3]]; 
+  ss <- results[[4]]; 
+  p <- results[[5]];
+  cml <- results[[6]];
+  mp <- results[[8]]; 
+  wmp <- results[[9]];
+  minp <- results[[10]]; 
+  wminp <- results[[11]]; 
+  postscript(file="./results2/fig1.eps", onefile=FALSE, horizontal=FALSE, height=10, width=5);
+  par(mfrow=c(2,1));
+  id <- c(1:nrow(dat));
+  plot(id, rev(dat[,1]), ylim=c(ymin, ymax), type="l", col=mycolors[1], xlab="day", ylab="log(price)", main = "Asset Prices");
+  if(J > 1){
     for(j in 2:J){
-        lines(id, rev(dat[,j]),type="l",col=mycolors[j]);
-} }
-legend("topleft", names(dat), cex=0.5, pch=rep(15, J),
-        col=mycolors);
-ret <- returns[[1]]; ymax = max(ret); ymin = min(ret); id <- c(1:nrow(ret)); plot(id,rev(ret[,1]),ylim=c(ymin, ymax),type="l",
-        col=mycolors[1], xlab="day", ylab="returns",
-        main = "Asset Returns");
-if(J > 1){
+      lines(id, rev(dat[,j]),type="l",col=mycolors[j]);
+    } 
+  }
+  legend("topleft", names(dat), cex=0.5, pch=rep(15, J), col=mycolors);
+  ret <- returns[[1]]; 
+  ymax = max(ret); 
+  ymin = min(ret); 
+  id <- c(1:nrow(ret)); 
+  plot(id,rev(ret[,1]),ylim=c(ymin, ymax),type="l", col=mycolors[1], xlab="day", ylab="returns", main = "Asset Returns");
+  if(J > 1){
     for(j in 2:J){
-        lines(id, rev(ret[,j]),type="l",col=mycolors[j])
-} }
-legend("topleft", returns[[2]], cex=0.5, pch=rep(15, J),
-        col=mycolors);
-postscript(file="./results2/fig2.eps", onefile=FALSE,
-        horizontal=FALSE, height=10, width=5);
-par(mfrow=c(2,1));
-mycolors <- rainbow(length(p)+1);
-plot(s,r,xlim=c(0, max(s)),ylim=c(min(r, p),max(r, p)),
-        type="l", col="blue", xlab="risk", ylab="return",
-main = "Capital Market Line, MVP2,
-points(ss, p, pch=19, col=mycolors);
-text(ss, p, pos=4, cex=0.5, names(p));
-points(mp[1], mp[2], pch=19, col="black"); points(mp[1], mp[2], pch=19, col="black"); text(mp[1], mp[2], pos=2, cex=0.6, "MP"); points(minp[1], minp[2], pch=19, col="black"); text(minp[1], minp[2], pos=2, cex=0.6, "MVP2"); text(0, cml[2], pos=4, cex=0.5, "RFA");
-lines(c(0, max(s)), c(cml[2], max(s)*cml[1] + cml[2]),
-        lty=3);
-abline(h=0, lty=2); abline(v=0, lty=2);
-f <- t(results[[7]]); mycolors <- rainbow(J+1);
-plot(z,f[,1], xlim=c(0,max(z)), ylim=c(min(f),max(f)),
-        type="l", col=mycolors[1], xlab="risk",
-        ylab="portfolio weights",
-        main="CML Portfolio Weights");
-if(J > 1){
+      lines(id, rev(ret[,j]),type="l",col=mycolors[j]);
+    } 
+  }
+  legend("topleft", returns[[2]], cex=0.5, pch=rep(15, J), col=mycolors);
+  postscript(file="./results2/fig2.eps", onefile=FALSE, horizontal=FALSE, height=10, width=5);
+  par(mfrow=c(2,1));
+  mycolors <- rainbow(length(p)+1);
+  plot(s,r,xlim=c(0, max(s)),ylim=c(min(r, p),max(r, p)), type="l", col="blue", xlab="risk", ylab="return", main = "Capital Market Line, MVP2, MP");
+  points(ss, p, pch=19, col=mycolors);
+  text(ss, p, pos=4, cex=0.5, names(p));
+  points(mp[1], mp[2], pch=19, col="black"); 
+  points(mp[1], mp[2], pch=19, col="black"); 
+  text(mp[1], mp[2], pos=2, cex=0.6, "MP"); 
+  points(minp[1], minp[2], pch=19, col="black"); 
+  text(minp[1], minp[2], pos=2, cex=0.6, "MVP2"); 
+  text(0, cml[2], pos=4, cex=0.5, "RFA");
+  lines(c(0, max(s)), c(cml[2], max(s)*cml[1] + cml[2]), lty=3);
+  abline(h=0, lty=2); 
+  abline(v=0, lty=2);
+  f <- t(results[[7]]); 
+  mycolors <- rainbow(J+1);
+  plot(z,f[,1], xlim=c(0,max(z)), ylim=c(min(f),max(f)), type="l", col=mycolors[1], xlab="risk", ylab="portfolio weights", main="CML Portfolio Weights");
+  if(J > 1){
     for(j in 2:J+1){
-        lines(z,f[,j],type="l",col=mycolors[j]);
+      lines(z,f[,j],type="l",col=mycolors[j]);
     }
+  }
+  abline(h=0, lty=2); 
+  abline(v=mp[1], lty=3); 
+  text(mp[1], min(f), pos=4, cex=0.5, "MP"); 
+  abline(v=minp[1], lty=3);
+  text(minp[1], min(f), pos=4, cex=0.5, "MVP2"); 
+  legend("topleft", c(names(p), "RFA"), cex=0.5, pch=rep(15, J+1), col=mycolors); 
+  postscript(file="./results2/fig3.eps", onefile=FALSE, horizontal=FALSE, height=10, width=5);
+  par(mfrow=c(2,1));
+  barplot(wminp, main="Minimum Variance Portfolio 2", xlab="Assets", ylab="Weights", col=mycolors, beside=TRUE);
+  abline(h=0, lty=1);
+  legend("topleft", c(names(p),"RFA"), cex=0.5, pch=rep(15, J+1), col=mycolors);
+  barplot(wmp, main="Market Portfolio",
+          xlab="Assets", ylab="Weights",
+          col=mycolors, beside=TRUE);
+  abline(h=0, lty=1);
+  legend("topleft", names(p), cex=0.5, pch=rep(15, J), col=mycolors);
 }
-abline(h=0, lty=2); abline(v=mp[1], lty=3); text(mp[1], min(f), pos=4, cex=0.5, "MP"); abline(v=minp[1], lty=3);
-text(minp[1], min(f), pos=4, cex=0.5, "MVP2"); legend("topleft", c(names(p), "RFA"),
-cex=0.5, pch=rep(15, J+1), col=mycolors); postscript(file="./results2/fig3.eps", onefile=FALSE,
-        horizontal=FALSE, height=10, width=5);
-par(mfrow=c(2,1));
-barplot(wminp, main="Minimum Variance Portfolio 2", xlab="Assets", ylab="Weights",
-        col=mycolors, beside=TRUE);
-abline(h=0, lty=1);
-legend("topleft", c(names(p),"RFA"), cex=0.5,
-        pch=rep(15, J+1), col=mycolors);
-barplot(wmp, main="Market Portfolio",
-        xlab="Assets", ylab="Weights",
-        col=mycolors, beside=TRUE);
-abline(h=0, lty=1);
-legend("topleft", names(p), cex=0.5,
-        pch=rep(15, J), col=mycolors);
-}
+
 data <- read_data(args);
 returns <- returns(data);
 dir.create("results2", showWarnings = FALSE);

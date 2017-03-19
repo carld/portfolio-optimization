@@ -2,7 +2,7 @@
 # price.r, extracts the stock prices
 args <- commandArgs(TRUE)
 extract_price <- function(args){
-  stocks <- t(read.table(args[1], sep=",")[1,])
+  stocks <- t(read.table(args[1], sep=",", strip.white=TRUE)[1,])
   J <- length(stocks)
   N <- as.integer(args[2])
   dat <- read.csv(paste("./data/", stocks[1], sep=""))

@@ -2,7 +2,7 @@
 # data.r, downloads raw stock data
 args <- commandArgs(TRUE)
 extract <- function(args){
-  stocks <- t(read.table(args[1],sep=",")[1,])
+  stocks <- t(read.table(args[1],sep=",",strip.white=TRUE)[1,])
   J <- length(stocks)
   dir.create("data", showWarnings = FALSE)
   path <- "http://ichart.finance.yahoo.com/table.csv?s="
